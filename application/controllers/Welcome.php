@@ -20,7 +20,11 @@ class Welcome extends CI_Controller {
 	 */
 	public function index()
 	{
-		$this->load->view('login');
-		
+		// $this->load->view('pagefront/');
+		$data = array();
+        $data['content'] = 'pagefront/index';  //nom de la vue de redirection
+		$data['connect'] = 1;
+		$data['developpeur'] = null;
+        $this->load->view('templatefront', $data);
 	}		
 }
