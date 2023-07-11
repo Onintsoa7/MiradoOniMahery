@@ -10,7 +10,9 @@
     <link rel="shortcut icon" type="image/x-icon" href="<?php echo site_url('assets/front/img/mom2.png');?> ">
 
     <!-- CSS here -->
+
     <link rel="stylesheet" href="<?php echo site_url('assets/front/css/bootstrap.css');?>">
+
     <link rel="stylesheet" href="<?php echo site_url('assets/front/css/bootstrap.min.css');?>">
     <link rel="stylesheet" href="<?php echo site_url('assets/front/css/owl.carousel.min.css');?>" >
     <link rel="stylesheet" href="<?php echo site_url('assets/front/css/slicknav.css');?>">
@@ -59,6 +61,7 @@
                                     <div class="main-menu d-none d-lg-block">
                                         <nav>
                                             <ul id="navigation">                                                                                          
+
                                                 <li><a href="<?php echo base_url('Welcome')?>">Accueil</a></li>
                                                 <li><a href="<?php echo base_url('miradoci/redirect_activite')?>">programme</a>
                                                     <ul class="submenu">
@@ -85,6 +88,21 @@
                                                 <?php } ?>
                                             </ul>
 
+                                                <li><a href="#">Accueil</a></li>
+                                                <li><a href="#">Activité</a></li>
+
+                                                <li><a href="#">Contact</a></li>
+                                                <!-- Button -->
+                                                <?php if ($connect == 1) { ?>
+                                                    <li class="button-header  "><a href="register.html" class="btn3">Profil</a></li>
+                                                    <li class="button-header"><a href="login.html" class="btn">Deconnexion</a></li>
+                                                <?php }else{ ?>
+                                                    
+                                                    <li class="button-header margin-left "><a href="register.html" class="btn">Inscription</a></li>
+                                                    <li class="button-header"><a href="login.html" class="btn3">Connexion</a></li>
+                                                <?php } ?>
+                                            </ul>
+
                                         </nav>
                                     </div>
                                 </div>
@@ -100,9 +118,5 @@
         </div>
         <!-- Header End -->
     </header>
+
 <main>
-
-
-
-
-   

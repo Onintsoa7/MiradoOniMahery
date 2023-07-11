@@ -12,7 +12,11 @@
                             </div>
                             <div class="footer-tittle mb-50">
                             <p>
-                                Nous vous remercions pour votre confiance . Stay tuned !
+                                 Nous vous remercions pour votre confiance . Stay tuned !
+
+                                Magnifier Ou Maigrir: <br>
+                                Voulez vous perdre ou gagner du poids ? Vous vous n'est pas trompé d'endroit :)
+                                Les recettes de grand-mère vous aiderons 
                             </p>
 
                             </div>
@@ -46,7 +50,15 @@
                                 <h4>Developpeur</h4>
 
                                 <ul>
-                                 
+
+                                    <?php if($developpeur!=null)
+                                    {
+                                         foreach($developpeur as $dev)
+                                         {?>
+                                            <li><p><?php echo $dev ;?></p></li>
+                                    <?php } 
+                                    } ?>
+
                                 </ul>
                             </div>
                         </div>
@@ -73,16 +85,18 @@
           </div>
       </div>
   </footer>
-   
+
   <!-- Scroll Up -->
   <div id="back-top" >
     <a title="Go to Top" href="#"> <i class="fas fa-level-up-alt"></i></a>
 </div>
 
+
 <!-- PDF -->
 <script src="<?php echo site_url('assets/pdf/html2canvas.min.js');?>"></script>
 <script src="<?php echo site_url('assets/pdf/jspdf.plugin.autotable.min.js');?>"></script>
 <script src="<?php echo site_url('assets/pdf/jspdf.umd.min.js');?>"></script>
+
 
 <!-- JS here -->
 
@@ -130,6 +144,7 @@
 <!-- Jquery Plugins, main Jquery -->	
 <script src="<?php echo site_url('assets/front/js/plugins.js');?>"></script>
 <script src="<?php echo site_url('assets/front/js/main.js');?>"></script>
+
 
 <!-- modal -->
 <script src="<?php echo site_url('assets/profil/bootstrap-4.1/bootstrap.min.js');?>"></script>
@@ -298,3 +313,7 @@
     }
   });
     </script>
+
+</body>
+</html>
+
