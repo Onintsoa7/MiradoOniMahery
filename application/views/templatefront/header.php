@@ -10,6 +10,9 @@
     <link rel="shortcut icon" type="image/x-icon" href="<?php echo site_url('assets/front/img/mom2.png');?> ">
 
     <!-- CSS here -->
+
+    <link rel="stylesheet" href="<?php echo site_url('assets/front/css/bootstrap.css');?>">
+
     <link rel="stylesheet" href="<?php echo site_url('assets/front/css/bootstrap.min.css');?>">
     <link rel="stylesheet" href="<?php echo site_url('assets/front/css/owl.carousel.min.css');?>" >
     <link rel="stylesheet" href="<?php echo site_url('assets/front/css/slicknav.css');?>">
@@ -58,6 +61,33 @@
                                     <div class="main-menu d-none d-lg-block">
                                         <nav>
                                             <ul id="navigation">                                                                                          
+
+                                                <li><a href="<?php echo base_url('Welcome')?>">Accueil</a></li>
+                                                <li><a href="<?php echo base_url('miradoci/redirect_activite')?>">programme</a>
+                                                    <ul class="submenu">
+                                                        <li><a  data-toggle="modal" data-target="#gagner">Gagner Poids</a></li>
+                                                        <li><a  data-toggle="modal" data-target="#perdre">Perdre Poids</a></li>
+                                                    </ul>
+                                                </li>
+
+                                                
+                                                <li><a href="<?php echo base_url('miradoci/redirect_monnaie')?>">echange</a></li>
+
+                                                <!-- Button -->
+                                                <?php if (isset($_SESSION['utilisateur'])) { ?>
+                                                    <li class="button-header"><a href="register.html"  data-toggle="modal" data-target="#capitale">modifier profil</a></li>
+                                                    <li class="button-header"><a href="<?php echo base_url('Welcome/deconnexion');?>" class="btn">Deconnexion</a></li>
+                                                    <li><a href=""><?php 
+                                                    if (isset($monnaie)) {
+                                                        echo number_format($monnaie[0]['montant'], 0, ',', ' ')   ?> Ar</a></li>
+                                                  <?php  }?>
+                                                <?php }else{ ?>
+                                                    
+                                                    <li class="button-header margin-left "><a href="<?php echo base_url('Welcome/redirect_login');?>" class="btn">Inscription</a></li>
+                                                    <li class="button-header"><a href="<?php echo base_url('Welcome/redirect_login');?>" class="btn3">Connexion</a></li>
+                                                <?php } ?>
+                                            </ul>
+
                                                 <li><a href="#">Accueil</a></li>
                                                 <li><a href="#">Activité</a></li>
 
@@ -72,6 +102,7 @@
                                                     <li class="button-header"><a href="login.html" class="btn3">Connexion</a></li>
                                                 <?php } ?>
                                             </ul>
+
                                         </nav>
                                     </div>
                                 </div>
@@ -87,3 +118,5 @@
         </div>
         <!-- Header End -->
     </header>
+
+<main>
