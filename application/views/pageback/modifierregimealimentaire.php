@@ -1,7 +1,7 @@
 <main class="main-content  mt-0">
   <div class="page-header min-vh-75">
     <div class="card-body">
-        <h1>MODIFICATION DE REGIME ALIMENTAIRE</h1>
+  <center><h1>MODIFICATION DE REGIME ALIMENTAIRE</h1></center>
       <form method="post" action="<?php echo site_url() ?>onicontroller/updateregimealimentaire">
         <h4>Les plats</h4>
         <?php for ($i = 0; $i < count($regime); $i++) { ?>

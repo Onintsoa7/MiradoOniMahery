@@ -1,4 +1,3 @@
-
 <div class="col-6 text-end">
   <a class="btn bg-gradient-dark mb-0" id="btn-open-modal" data-toggle="modal" data-target="#capitale"><i class="fas fa-plus"></i>&nbsp;&nbsp;NOUVEAU REGIME</a>
 </div>
@@ -23,11 +22,9 @@
             </tr>
           </thead>
           <tbody>
-            <?php 
-            $totalPrix = 0;
+            <?php
             for ($i = 0; $i < count($regime_alimentaire_relation); $i++) {
-                  $totalPrix += $regime_alimentaire_relation[$i]['prix'];
-              ?>
+            ?>
               <tr>
                 <td>
                   <div class="d-flex px-2 py-1">
@@ -57,37 +54,43 @@
                     </div>
                   </div>
                 </td>
-                <td>
-                  <?php 
-                  $j = array_search($regime_alimentaire_relation[$i]['id_regime_alimentaire'], array_column($sum_regime, 'idregime'));
-                  if ($j !== false) {
-                    $prix = $sum_regime[$j]['prix'];
-                    $poidsvariation = $sum_regime[$j]['poidsvariation'];
-                    
-                    // Affichage de poidsvariation et détermination perte/gain de poids
-                    echo '<p class="text-xs font-weight-bold mb-0">' . $poidsvariation . '</p>';
-                    
-                    if ($poidsvariation < 0) {
-                      echo '<p class="text-xs font-weight-bold mb-0">Perte de poids</p>';
-                    } elseif ($poidsvariation > 0) {
-                      echo '<p class="text-xs font-weight-bold mb-0">Gain de poids</p>';
+                <td><?php
+                    for ($j = 0; $j < count($sum_regime); $j++) {
+                      if ($sum_regime[$j]['idregime'] == $regime_alimentaire_relation[$i]['id_regime_alimentaire']) {
+                        $prix = $sum_regime[$j]['prix'];
+                        $poidsvariation = $sum_regime[$j]['poidsvariation'];
+
+                        // Affichage de poidsvariation et détermination perte/gain de poids
+                        echo '<p class="text-xs font-weight-bold mb-0">' . $poidsvariation . '</p>';
+
+                        if ($poidsvariation < 0) {
+                          echo '<p class="text-xs font-weight-bold mb-0">Perte de poids</p>';
+                        } else if ($poidsvariation > 0) {
+                          echo '<p class="text-xs font-weight-bold mb-0">Gain de poids</p>';
+                        } else {
+                          echo '<p class="text-xs font-weight-bold mb-0">Pas de variation</p>';
+                        }
+
+                        // Break the loop once a match is found
+                        break;
+                      }
                     }
-                  }
-                  ?>
+                    ?>
+
                 </td>
                 <td class="align-middle text-center">
                   <button class="btn bg-gradient-dark mb-0" data-toggle="modal">
-                  <a href="<?php echo site_url() ?>onicontroller/modifierregimealimentairerelation?idregimealimentairerelation=<?php echo $regime_alimentaire_relation[$i]['id_regime_alimentaire']; ?>" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
-                    Modifier
-                  </a>
-                </button >
+                    <a href="<?php echo site_url() ?>onicontroller/modifierregimealimentairerelation?idregimealimentairerelation=<?php echo $regime_alimentaire_relation[$i]['id_regime_alimentaire']; ?>" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                      Modifier
+                    </a>
+                  </button>
                 </td>
                 <td class="align-middle">
-                <button class="btn bg-gradient-dark mb-0" id="btn-open-delete" data-toggle="modal" data-target="#delete">
-  Supprimer
-</button>
+                  <button class="btn bg-gradient-dark mb-0" id="btn-open-delete" data-toggle="modal" data-target="#delete">
+                    Supprimer
+                  </button>
                 </td>
-              </tr> 
+              </tr>
             <?php }
             ?>
           </tbody>
@@ -176,6 +179,7 @@
   .btn-submit:hover {
     background-color: #45a049;
   }
+
   .popup {
     display: none;
     position: fixed;
@@ -230,11 +234,11 @@
   <div class="modal-content">
     <span class="close">&times;</span>
     <form method="post" action="<?php echo site_url(); ?>onicontroller/insertion_regime_alimentaire">
-      <?php for ($i=0; $i < count($regime); $i++) { ?>
-      <div class="input-group">
-        <label for="regime<?php echo($regime[$i]['id']); ?>"><?php echo($regime[$i]['nom']); ?></label>
-        <input type="checkbox" id="regime" name="regime[]" value="<?php echo($regime[$i]['id']); ?>">
-      </div>
+      <?php for ($i = 0; $i < count($regime); $i++) { ?>
+        <div class="input-group">
+          <label for="regime<?php echo ($regime[$i]['id']); ?>"><?php echo ($regime[$i]['nom']); ?></label>
+          <input type="checkbox" id="regime" name="regime[]" value="<?php echo ($regime[$i]['id']); ?>">
+        </div>
       <?php } ?>
 
       <div class="ms-md-auto pe-md-3 d-flex align-items-center">
@@ -293,7 +297,6 @@
 </script>
 
 <script>
-  
   const duree = document.getElementById('duree');
   duree.addEventListener('input', function() {
     const illegalCharacters = /[-*+!@#$%^&()_+=[azertyàçèéùuiopqsdfghjklmwxcvbn\]{};':"\\|,<>/?]/g;
@@ -301,8 +304,4 @@
       this.value = this.value.replace(illegalCharacters, '');
     }
   });
-
-
-
-  
 </script>

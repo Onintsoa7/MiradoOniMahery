@@ -1,6 +1,7 @@
 <main class="main-content  mt-0">
   <div class="page-header min-vh-75">
     <div class="card-body">
+  <center><h1>MODIFICATION D' ACTIVITE SPORTIVE</h1></center>
       <form method="post" action="<?php echo site_url() ?>onicontroller/updatesport">
         <label>Nom du plat</label>
         <div class="mb-3">

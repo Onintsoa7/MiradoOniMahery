@@ -1,6 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-require_once (APPPATH . 'controllers/sessioncontroller.php');
+require_once (APPPATH . 'controllers\sessioncontroller.php');
 
 class mahery extends sessioncontroller {
 
@@ -22,7 +22,7 @@ class mahery extends sessioncontroller {
 	public function index()
 	{
 		$data = array();
-        $data['content'] = 'pagefront/accueil';  //nom de la vue de redirection
+        $data['content'] = 'pagefront/export';  //nom de la vue de redirection
         $this->load->view('templatefront', $data);
 	}		
 }

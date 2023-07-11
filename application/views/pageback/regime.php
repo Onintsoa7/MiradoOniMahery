@@ -141,7 +141,7 @@
               <td>
                 <div class="d-flex px-2 py-1">
                   <div class="d-flex flex-column justify-content-center">
-                    <h6 class="mb-0 text-sm"><?php echo($regime[$i]['prix']); ?></h6>
+                    <h6 class="mb-0 text-sm"><?php echo($regime[$i]['prix']); ?> AR</h6>
                   </div>
                 </div>
               </td>
@@ -151,6 +151,16 @@
                   Modifier
                 </a>
                 </button >
+              </td>
+              <td>
+                
+      <!-- mahery -->
+      <button class="btn bg-gradient-dark mb-0"  data-toggle="modal" >
+                      <a href="<?php echo site_url() ?>maherycontroller/composition?idregime=<?php echo($regime[$i]['id']); ?>&nom_regime=<?php echo($regime[$i]['nom']); ?>" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                        Composition
+                      </a>
+                  </button >
+      <!--  -->
               </td>
                 <td class="align-middle">
                   <button class="btn bg-gradient-dark mb-0" id="btn-open-delete" data-toggle="modal" data-target="#delete" >
@@ -215,7 +225,6 @@
           </select>
         </div>
       </div>
-
       <br>
       <div class="ms-md-auto pe-md-3 d-flex align-items-center">
         <div class="input-group">
@@ -229,6 +238,22 @@
         </div>
       </div>
       <br>
+      <table class="table">
+      <thead>
+        <tr>
+          <th>Composition</th>
+          <th>Quantité</th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php for ($i = 0; $i < count($composition); $i++) { ?>
+          <tr>
+            <td><?php echo $composition[$i]['nom']; ?></td>
+            <td><input type="text" class="form-control" placeholder="Quantité..." id="composition<?php echo $composition[$i]['id']; ?>" name="composition<?php echo $composition[$i]['id']; ?>"></td>
+          </tr>
+        <?php } ?>
+      </tbody>
+    </table>
       <div class="ms-md-auto pe-md-3 d-flex align-items-center">
         <div class="input-group">
           <input type="submit" class="form-control" value="Soumettre">
@@ -244,7 +269,14 @@
 <script>
   
   const montant = document.getElementById('montant');
+  const composition = document.querySelector('input[id*=composition]');
   const poidsvariation = document.getElementById('poidsvariation');
+  composition.addEventListener('input', function() {
+    const illegalCharacters = /[-*+!@#$%^&()_+=[azertàçèéyuùiopqsdfghjklmwxcvbn\]{};':"\\|,<>/?]/g;
+    if (illegalCharacters.test(this.value)) {
+      this.value = this.value.replace(illegalCharacters, '');
+    }
+  });
   poidsvariation.addEventListener('input', function() {
     const illegalCharacters = /[-*+!@#$%^&()_+=[azertàçèéyuùiopqsdfghjklmwxcvbn\]{};':"\\|,<>/?]/g;
     if (illegalCharacters.test(this.value)) {

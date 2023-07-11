@@ -26,12 +26,72 @@ class onicontroller extends CI_Controller
 		$this->load->view('pageback/login');
 	}
 
-	public function accueil()
-	{
-		$data = array();
-		$data['content'] = 'pageback/accueil';  //nom de la vue de redirection
-		$this->load->view('templateback', $data);
+	
+// ----------------------------- Mahery----------------------------------//
+public function accueil()
+{
+	$data = array();
+	$data['content'] = 'pageback/accueil';  //nom de la vue de redirection
+	$this->load->model('mahery');
+	$caisse = $this->mahery->avoir_caisse();
+
+	
+	$max_mois_caisse = $this->mahery->max_mois_caisse();
+
+
+
+	if ($caisse != false) {
+		$montant = array();
+		for ($i=1; $i <=$max_mois_caisse ; $i++) { 
+
+			foreach ($caisse as $c) {
+				if ($i == $c->mois) {
+					// echo $i.": ".$c->mois." / ".$c->montant;
+					$montant[$i] = $c->montant;
+					// var_dump($montant);
+				}else{
+					if (!isset($montant[$i])) {
+						$montant[$i] = 0;
+					}
+				}
+			}
+		}
+		$data['montant'] = $montant;
+	}else{
+		$data['montant'] = array();
+
 	}
+
+
+	$code = $this->mahery->avoir_code();
+	$max_mois_code = $this->mahery->max_mois_code();
+
+	if ($code != false) {
+		$nombre_code = array();
+		for ($j=1; $j <=$max_mois_code ; $j++) { 
+
+			foreach ($code as $c) {
+				if ($j == $c->mois) {
+					$nombre_code[$j] = $c->nombre;
+					// var_dump($montant);
+				}else{
+					if (!isset($nombre_code[$j])) {
+						$nombre_code[$j] = 0;
+					}
+				}
+			}
+		}
+		$data['nombre_code'] = $nombre_code;
+	}else{
+		$data['nombre_code'] = array();
+
+	}
+	
+	$this->load->view('templateback', $data);
+}
+
+
+// ---------------------------------------------------------------//
 
 	public function utilisateur()
 	{
@@ -56,6 +116,7 @@ class onicontroller extends CI_Controller
 		$data = array();
 		$this->load->model('oni');
 		$data['regime'] = $this->oni->getregime(0);
+		$data['composition'] = $this->oni->getcomposition();
 		$data['content'] = 'pageback/regime';  //nom de la vue de redirection
 		$this->load->view('templateback', $data);
 	}
@@ -131,8 +192,14 @@ class onicontroller extends CI_Controller
 		$montant = $_POST['montant'];
 		$objectif = $_POST['objectif'];
 		$this->load->model('oni');
-		echo floatval($poidsvariation) . "hooooo";
 		$this->oni->insertion_regime($nom, floatval($poidsvariation), floatval($montant), $objectif);
+		$max_id = $this->oni->max_regime();
+		$data['composition'] = $this->oni->getcomposition();
+		for ($i=0; $i < count($data['composition']); $i++) { 
+			if("composition".$data['composition'][$i]['id'] != null){
+				$this->oni->insertion_composition_regime($max_id, $data['composition'][$i]['id'], $_POST["composition".$data['composition'][$i]['id']]);
+			}
+		}
 		redirect(site_url('onicontroller/regime'));
 	}
 
@@ -187,6 +254,17 @@ class onicontroller extends CI_Controller
 		$this->oni->update_regime($nom, $poidsvariation, $montant, $objectif, $id);
 		redirect(site_url('onicontroller/regime'));
 	}
+
+	public function updatesport()
+	{
+		$nom = $_POST['nom'];
+		$poidsvariation = $_POST['poidsvariation'];
+		$objectif = $_POST['objectif'];
+		$id = $_POST['id'];
+		$this->load->model('oni');
+		$this->oni->update_sport($nom, $poidsvariation, $objectif, $id);
+		redirect(site_url('onicontroller/sport'));
+	}
 	public function modifierregimealimentairerelation()
 	{
 		$data = array();
@@ -205,7 +283,6 @@ class onicontroller extends CI_Controller
 	}
 	public function updateregimealimentaire()
 	{
-
 		$duree = $_POST['duree'];
 		// Retrieve the selected checkbox values
 		$selectedRegimes = $_POST['regime'];

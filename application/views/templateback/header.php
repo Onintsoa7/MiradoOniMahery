@@ -31,6 +31,7 @@
   <!-- Nucleo Icons -->
   <link href=<?php echo base_url('assets/back/css/nucleo-icons.css') ?> rel="stylesheet" />
   <link href=<?php echo base_url('assets/back/css/nucleo-svg.css') ?> rel="stylesheet" />
+  <script src="<?php echo base_url('assets/back/js/chart.js')?>"></script>
   
 </head>
 
